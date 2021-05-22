@@ -6,13 +6,15 @@ export class GuiModel {
 
     private _guiModel = {
         "application": {
-            "title": "Requirements Engineering Friend Tracker",
+            "title": "Harish Rasiah und Damian Schlegel Friend Tracker",
             "formList": [
                 {
                     "id": "FriendForm",
                     "title": "Friend",
                     "url": "/friend",
                     "formFieldList": [
+
+                        
                         {
                             "id": "familyName",
                             "type": "text",
@@ -27,8 +29,24 @@ export class GuiModel {
                             "width": 1,
                             "required": true
                         },
+
                         {
-                            "id":   "location",
+                            "id": "nickname",
+                            "type": "text",
+                            "name": "Nickname",
+                            "width": 2,
+                            "required": true
+                        },
+                        {
+                            "id": "group",
+                            "type": "autocomplete",
+                            "name": "Group",
+                            "url": "/group",
+                            "form": "GroupForm",
+                            "width": 2
+                           },
+                        {
+                            "id": "location",
                             "type": "autocomplete",
                             "name": "Location",
                             "url": "/location",
@@ -60,7 +78,8 @@ export class GuiModel {
                         {
                             "type": "okButton",
                             "name": "Ok"
-                        }
+                        }, 
+                        
                     ]
                 },
                 {
@@ -95,7 +114,7 @@ export class GuiModel {
                     "url": "/friend/:friendKey/activity",
                     "formFieldList": [
                         {
-                            "id":   "activity",
+                            "id": "activity",
                             "type": "autocomplete",
                             "name": "Activity",
                             "url": "/activity",
@@ -118,12 +137,40 @@ export class GuiModel {
                         }
                     ]
                 },
+                {
+                    "id": "GroupForm",
+                    "title": "Group",
+                    "url": "/group",
+                    "formFieldList": [
+                        {
+                            "id": "name",
+                            "type": "text",
+                            "name": "GroupName",
+                            "width": 2,
+                            "required": true
+                        },
+                        {
+                            "type": "deleteButton",
+                            "name": "Delete"
+                        },
+                        {
+                            "type": "cancelButton",
+                            "name": "Cancel"
+                        },
+                        {
+                            "type": "okButton",
+                            "name": "Ok"
+                        }
+                    ]
+                }
             ],
             "pageList": [
                 {
                     "id": "mainmenu",
                     "name": "MainMenu",
                     "elementList": [
+
+
                         {
                             "type": "button",
                             "name": "Friends",
@@ -138,8 +185,134 @@ export class GuiModel {
                             "color": "yellow",
                             "page": "locationspage",
                         },
+                        {
+                            "type": "button",
+                            "name": "Groups",
+                            "icon": "fa-weixin",
+                            "color": "wisteria",
+                            "page": "groupspage",
+                        },
+
+                        {
+                            "type": "button",
+                            "name": "Activities",
+                            "icon": "fa-weixin",
+                            "color": "orange",
+                            "page": "activitypage",
+                        },
+
+
+
                     ]
                 },
+
+                {
+                    "id": "detailedActivityList",
+                    "elementList": [
+                        {
+                            "type": "backbutton",
+                        },
+
+                        {
+                            "type": "list",
+                            "icon": "fa-user",
+                            "color": "blue",
+                            "search": true,
+                            "url": "/activity/:activityKey/friend",
+                            "page": "detailedFriendsList"
+                                
+                            
+                        },
+
+                        {
+                            "type": "list",
+                            "icon": "fa-user",
+                            "color": "blue",
+                            "url": "/activity/:activityKey/friend ",
+                            "page": "detailedFriendsList"
+                                
+                            
+                        },
+                        
+                        
+                    ]
+                },
+
+                {
+                    "id": "detailedLocationList",
+                    "elementList": [
+                        {
+                            "type": "backbutton",
+                        },
+
+                        {
+                            "type": "list",
+                            "icon": "fa-user",
+                            "color": "blue",
+                            "search": true,
+                            "url": "/activity",
+                            "page": "detailedFriendsList"
+                                
+                            
+                        },
+
+                        {
+                            "type": "list",
+                            "icon": "fa-user",
+                            "color": "blue",
+                            "url": "/location/:locationKey/activity",
+                            "page": "detailedFriendsList"
+                                
+                            
+                        },
+                        
+                        
+                    ]
+                },
+
+                {
+                    "id": "detailedFriendsList",
+                    "elementList": [
+                        {
+                            "type": "backbutton",
+                        },
+
+                        {
+                            "type": "newButton",
+                            "name": "EditFriend",
+                            "icon": "fa-edit",
+                            "color": "green",
+                            "form": {
+                                "form": "FriendForm"
+                            }
+                        },
+
+                        {
+                            "type": "newButton",
+                            "name": "AddActivity",
+                            "icon": "fa-calendar-alt",
+                            "color": "green",
+                            "form": {
+                                "form": "AddActivityForm"
+                            }
+                        },
+
+                        {
+                            "type": "list",
+                            "icon": "fa-user",
+                            "color": "blue",
+                            "search": true,
+                            "url": "/friend/:friendKey/activity",
+                            "page": "detailedFriendsList"
+                                
+                            
+                        },
+                        
+                        
+                    ]
+                },
+
+
                 {
                     "id": "friendspage",
                     "elementList": [
@@ -155,18 +328,78 @@ export class GuiModel {
                                 "form": "FriendForm"
                             }
                         },
+                        
                         {
                             "type": "list",
                             "icon": "fa-user",
                             "color": "blue",
                             "search": true,
                             "url": "/friend",
-                            "form": {
-                                "form": "FriendForm"
-                            }
+                            "page": "detailedFriendsList"
+                                
+                            
                         },
                     ]
                 },
+
+                {
+                    "id": "groupspage",
+                    "elementList": [
+                        {
+                            "type": "backbutton",
+                        },
+                        {
+                            "type": "newButton",
+                            "name": "NewGroup",
+                            "icon": "fa-weixin",
+                            "color": "green",
+                            "form": {
+                                "form": "GroupForm"
+                            }
+                        },
+                        {
+                            "type": "list",
+                            "icon": "fa-weixin",
+                            "color": "wisteria",
+                            "search": true,
+                            "url": "/group",
+                            "form": {
+                            "form": "GroupForm"
+                            }
+                            },
+                            
+                    ]
+                },
+
+                {
+                    "id": "activitypage",
+                    "elementList": [
+                        {
+                            "type": "backbutton",
+                        },
+                        {
+                            "type": "newButton",
+                            "name": "NewActivity",
+                            "icon": "fa-weixin",
+                            "color": "green",
+                            "form": {
+                                "form": "AddActivityForm"
+                            }
+                        },
+                        {
+                            "type": "list",
+                            "icon": "fa-user",
+                            "color": "blue",
+                            "search": true,
+                            "url": "/activity",
+                            "page": "detailedActivityList"
+                                
+                            
+                        },
+                            
+                    ]
+                },
+
                 {
                     "id": "locationspage",
                     "elementList": [
@@ -189,9 +422,7 @@ export class GuiModel {
                             "color": "blue",
                             "search": true,
                             "url": "/location",
-                            "form": {
-                                "form": "LocationForm"
-                            }
+                            "page": "detailedLocationList"
                         },
                     ]
                 },
